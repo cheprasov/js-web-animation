@@ -10,7 +10,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            "/SRC": path.resolve(__dirname, "src/"),
+            '/SRC': path.resolve(__dirname, 'src/'),
         }
     },
     module: {
@@ -20,7 +20,16 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: "babel-loader",
+                        loader: 'babel-jest',
+                    },
+                ],
+            },
+            {
+                test: /\.j11s$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader',
                     },
                 ],
             },

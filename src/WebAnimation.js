@@ -1,6 +1,6 @@
 //@flow strict
 
-type OptionsType = {
+export type OptionsType = {
     duration: ?number,
     easing: ?Function,
     rAF: ?Function,
@@ -9,7 +9,7 @@ type OptionsType = {
     onFinish: ?Function,
 };
 
-type ProgressType = {
+export type ProgressType = {
     elapsedTime: number,
     ratio: number,
     tween: number,
@@ -21,11 +21,13 @@ export default class WebAnimation {
     _duration: number;
     _startTime: number = 0;
     _isStopped: boolean = true;
+    _easing: Function;
+    _rAF: Function;
+
     _onStop: ?Function;
     _onStep: ?Function;
     _onFinish: ?Function;
-    _easing: Function;
-    _rAF: Function;
+
 
     constructor(options: OptionsType = {}) {
         this._duration = options && options.duration || 1000;
@@ -39,15 +41,15 @@ export default class WebAnimation {
         this._onTick = this._onTick.bind(this);
     }
 
-    setOnStop(onStop: Function) {
+    setOnStop(onStop: ?Function = null) {
         this._onStop = onStop;
     }
 
-    setOnStep(onStep: Function) {
+    setOnStep(onStep: ?Function = null) {
         this._onStep = onStep;
     }
 
-    setOnFinish(onFinish: Function) {
+    setOnFinish(onFinish: ?Function = null) {
         this._onFinish = onFinish;
     }
 
@@ -57,7 +59,7 @@ export default class WebAnimation {
         }
         this._isStopped = true;
         if (this._onStop) {
-            const progress = this.getProgressData();
+            const progress = this.getProgress();
             this._onStop(progress);
         }
     }
@@ -69,12 +71,12 @@ export default class WebAnimation {
         this._rAF(this._onTick);
     }
 
-    getProgressData(): ProgressType {
+    getProgress(): ProgressType {
         const elapsedTime = Date.now() - this._startTime;
         const isFinished = elapsedTime >= this._duration;
         const ratio = Math.min(1, elapsedTime / this._duration);
         const tween = this._easing(ratio);
-        return {elapsedTime, ratio, tween, isFinished};
+        return { elapsedTime, ratio, tween, isFinished };
     }
 
     /**
@@ -84,7 +86,8 @@ export default class WebAnimation {
         if (this._isStopped) {
             return;
         }
-        const progress = this.getProgressData();
+
+        const progress = this.getProgress();
         if (this._onStep) {
             this._onStep(progress);
         }
