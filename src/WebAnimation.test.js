@@ -150,6 +150,7 @@ describe('WebAnimation', () => {
             animation.run();
             animation.stop();
             expect(animation._onStop).toHaveBeenCalled();
+            expect(animation._onStop.mock.calls[0][1]).toEqual(animation);
             const progress = animation._onStop.mock.calls[0][0];
             expect(progress).toHaveProperty('elapsedTime');
             expect(progress).toHaveProperty('ratio');
@@ -277,12 +278,12 @@ describe('WebAnimation', () => {
 
         it('should call onStep with progress data', () => {
             animation._onTick();
-            expect(animation._onStep).toHaveBeenCalledWith(progress);
+            expect(animation._onStep).toHaveBeenCalledWith(progress, animation);
         });
 
         it('should call onFinish with progress data if animation is finished', () => {
             animation._onTick();
-            expect(animation._onFinish).toHaveBeenCalledWith(progress);
+            expect(animation._onFinish).toHaveBeenCalledWith(progress, animation);
             expect(animation._isStopped).toBeTruthy();
         });
 

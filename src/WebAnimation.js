@@ -28,7 +28,6 @@ export default class WebAnimation {
     _onStep: ?Function;
     _onFinish: ?Function;
 
-
     constructor(options: OptionsType = {}) {
         this._duration = options && options.duration || 1000;
         this._rAF = options && options.rAF || window.requestAnimationFrame.bind(window);
@@ -60,7 +59,7 @@ export default class WebAnimation {
         this._isStopped = true;
         if (this._onStop) {
             const progress = this.getProgress();
-            this._onStop(progress);
+            this._onStop(progress, this);
         }
     }
 
@@ -89,13 +88,13 @@ export default class WebAnimation {
 
         const progress = this.getProgress();
         if (this._onStep) {
-            this._onStep(progress);
+            this._onStep(progress, this);
         }
 
         if (progress.isFinished) {
             this._isStopped = true;
             if (this._onFinish) {
-                this._onFinish(progress);
+                this._onFinish(progress, this);
             }
             return;
         }

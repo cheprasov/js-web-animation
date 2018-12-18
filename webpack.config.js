@@ -16,7 +16,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.test\.js$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -25,7 +25,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.j11s$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 use: [
                     {
