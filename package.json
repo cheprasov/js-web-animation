@@ -8,7 +8,7 @@
     "requestAnimationFrame",
     "tween"
   ],
-  "main": "src/WebAnimation.js",
+  "main": "dist/web-animation.js",
   "license": "MIT",
   "repository": {
     "type": "git",

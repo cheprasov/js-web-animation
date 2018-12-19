@@ -21,7 +21,7 @@ Simple class WebAnimation for perform an animation on the web via JavaScript. It
 Example 1: Moving div to left on 500px for 2 sec with easing f(x) = n^2. 
 
 ```javascript
-import WebAnimation from 'js-web-animation';
+import WebAnimation from '@cheprasov/web-animation';
 
 const div1 = document.getElementById('div1');
 

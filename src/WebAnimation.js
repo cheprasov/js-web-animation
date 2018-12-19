@@ -1,12 +1,12 @@
-//@flow strict
+//@flow
 
 export type OptionsType = {
-    duration: ?number,
-    easing: ?Function,
-    rAF: ?Function,
-    onStep: ?Function,
-    onStop: ?Function,
-    onFinish: ?Function,
+    duration?: number,
+    easing?: Function,
+    rAF?: Function,
+    onStep?: Function,
+    onStop?: Function,
+    onFinish?: Function,
 };
 
 export type ProgressType = {
