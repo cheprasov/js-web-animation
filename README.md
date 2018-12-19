@@ -1,6 +1,6 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-@cheprasov/web-animation v0.1.0
+@cheprasov/web-animation
 =========
 
 Simple class WebAnimation for perform an animation on the web via JavaScript. It is based on requestAnimationFrame for performance.
@@ -14,6 +14,10 @@ Simple class WebAnimation for perform an animation on the web via JavaScript. It
 
 ```bash
 > npm install @cheprasov/web-animation
+```
+
+```javascript
+import WebAnimation from '@cheprasov/web-animation';
 ```
 
 ### 2. Quick examples

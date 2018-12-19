@@ -7,6 +7,7 @@ module.exports = {
     output: {
         path: __dirname + '/dist',
         filename: '[name]',
+        libraryTarget: 'commonjs2',
     },
     resolve: {
         alias: {
