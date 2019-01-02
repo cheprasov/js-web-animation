@@ -16,6 +16,15 @@ export type ProgressType = {
     isFinished: boolean,
 };
 
+const defaultOptions: OptionsType = {
+    duration: 1000,
+    easing: n => n,
+    rAF: null,
+    onStep: null,
+    onStop: null,
+    onFinish: null,
+};
+
 export default class WebAnimation {
 
     _duration: number;
@@ -29,13 +38,14 @@ export default class WebAnimation {
     _onFinish: ?Function;
 
     constructor(options: OptionsType = {}) {
-        this._duration = options && options.duration || 1000;
-        this._rAF = options && options.rAF || window.requestAnimationFrame.bind(window);
-        this._easing = options && options.easing || (n => n);
+        const opts = { ...defaultOptions, ...options };
+        this._duration = opts.duration;
+        this._rAF = opts.rAF || window.requestAnimationFrame.bind(window);
+        this._easing = opts.easing;
 
-        this._onStep = options && options.onStep || null;
-        this._onStop = options && options.onStop || null;
-        this._onFinish = options && options.onFinish || null;
+        this._onStep = opts.onStep;
+        this._onStop = opts.onStop;
+        this._onFinish = opts.onFinish;
 
         this._onTick = this._onTick.bind(this);
     }

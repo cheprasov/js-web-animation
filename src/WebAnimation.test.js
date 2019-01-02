@@ -49,7 +49,14 @@ describe('WebAnimation', () => {
                 .replace(/\r|\n/g, '')
                 .replace(/(^ +)|( +$)/g, '')
                 .replace(/ {2,}/g, ' ');
-            expect(strEasing).toEqual('function (n) { return n; }');
+            expect(strEasing).toEqual('function easing(n) { return n; }');
+        });
+
+        it('should allow to use 0 for duration', () => {
+            animation = new WebAnimation({
+                duration: 0,
+            });
+            expect(animation._duration).toEqual(0);
         });
     });
 
