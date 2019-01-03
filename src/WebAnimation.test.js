@@ -248,6 +248,20 @@ describe('WebAnimation', () => {
             const progress = animation.getProgress();
             expect(progress.isFinished).toBeTruthy();
         });
+
+        it('should return finished progress data when duration is empty or less 0', () => {
+            animation._duration = 0;
+            expect(animation.getProgress()).toEqual({ elapsedTime: 0, ratio: 1, tween: 1, isFinished: true });
+
+            animation._duration = NaN;
+            expect(animation.getProgress()).toEqual({ elapsedTime: 0, ratio: 1, tween: 1, isFinished: true });
+
+            animation._duration = null;
+            expect(animation.getProgress()).toEqual({ elapsedTime: 0, ratio: 1, tween: 1, isFinished: true });
+
+            animation._duration = -1;
+            expect(animation.getProgress()).toEqual({ elapsedTime: 0, ratio: 1, tween: 1, isFinished: true });
+        });
     });
 
     describe('_onTick', () => {

@@ -1,6 +1,6 @@
 {
   "name": "@cheprasov/web-animation",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Alexander Cheprasov",
   "description": "A Class for driving animated content on the web is based on requestAnimationFrame for performance.",
   "keywords": [
