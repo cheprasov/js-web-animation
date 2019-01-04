@@ -82,7 +82,7 @@ export default class WebAnimation {
 
     getProgress(): ProgressType {
         if (!this._duration || this._duration <= 0) {
-            return { elapsedTime: 0, ratio: 1, tween: 1, isFinished: true };
+            return { elapsedTime: 0, ratio: 1, tween: this._easing(1), isFinished: true };
         }
         const elapsedTime = Date.now() - this._startTime;
         const isFinished = elapsedTime >= this._duration;
