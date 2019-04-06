@@ -37,6 +37,8 @@ export default class WebAnimation {
     _onStep: ?Function;
     _onFinish: ?Function;
 
+    _isInLoop: boolean = false;
+
     constructor(options: OptionsType = {}) {
         const opts = { ...defaultOptions, ...options };
         this._duration = opts.duration;
@@ -77,7 +79,10 @@ export default class WebAnimation {
         this._isStopped = false;
         this._startTime = Date.now();
 
-        this._rAF(this._onTick);
+        if (!this._isInLoop) {
+            this._rAF(this._onTick);
+            this._isInLoop = true;
+        }
     }
 
     getProgress(): ProgressType {
@@ -96,6 +101,7 @@ export default class WebAnimation {
      */
     _onTick() {
         if (this._isStopped) {
+            this._isInLoop = false;
             return;
         }
 
@@ -109,6 +115,7 @@ export default class WebAnimation {
             if (this._onFinish) {
                 this._onFinish(progress, this);
             }
+            this._isInLoop = false;
             return;
         }
 

@@ -188,8 +188,17 @@ describe('WebAnimation', () => {
             expect(animation._startTime).toEqual(42);
         });
 
-        it('should call tick function for animation', () => {
+        it('should call tick function for animation and mark as in loop', () => {
             expect(animation._rAF).toHaveBeenCalledWith(animation._onTick);
+            expect(animation._isInLoop).toBeTruthy();
+        });
+
+        it('should not call tick animation if it is in loop', () => {
+            animation = new WebAnimation();
+            animation._rAF = jest.fn();
+            animation._isInLoop = true;
+            animation.run();
+            expect(animation._rAF).not.toHaveBeenCalled();
         });
     });
 
@@ -273,6 +282,7 @@ describe('WebAnimation', () => {
             animation._onFinish = jest.fn();
             animation._rAF = jest.fn();
             animation._isStopped = false;
+            animation._isInLoop = true;
             progress = {
                 elapsedTime: 42,
                 ratio: 1,
@@ -290,6 +300,7 @@ describe('WebAnimation', () => {
             expect(animation._onStep).not.toHaveBeenCalled();
             expect(animation._onFinish).not.toHaveBeenCalled();
             expect(animation._rAF).not.toHaveBeenCalled();
+            expect(animation._isInLoop).toBeFalsy();
         });
 
         it('should get progress of animation', () => {
@@ -306,11 +317,13 @@ describe('WebAnimation', () => {
             animation._onTick();
             expect(animation._onFinish).toHaveBeenCalledWith(progress, animation);
             expect(animation._isStopped).toBeTruthy();
+            expect(animation._isInLoop).toBeFalsy();
         });
 
         it('should not call _rAF if animation is finished', () => {
             animation._onTick();
             expect(animation._rAF).not.toHaveBeenCalled();
+            expect(animation._isInLoop).toBeFalsy();
         });
 
         it('should not call _onFinish if animation is not finished', () => {
@@ -318,12 +331,14 @@ describe('WebAnimation', () => {
             animation._onTick();
             expect(animation._onFinish).not.toHaveBeenCalled();
             expect(animation._isStopped).toBeFalsy();
+            expect(animation._isInLoop).toBeTruthy();
         });
 
         it('should call _rAF if animation is not finished', () => {
             progress.isFinished = false;
             animation._onTick();
             expect(animation._rAF).toHaveBeenCalled();
+            expect(animation._isInLoop).toBeTruthy();
         });
     });
 
